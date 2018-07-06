@@ -85,6 +85,7 @@ std::vector<std::string> Decoder::getSolutions() const
 	return solutions;
 }
 
+// needs access to the tree and pool
 void Decoder::recursivelySolve()
 {
 	// TODO: Do I need a separate letterPool for each node?
