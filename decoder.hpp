@@ -18,16 +18,16 @@ class Decoder
 	Decoder(void);
 	// Message
 	std::string getMessage(void) const;
-	void setMessage(const std::string &m);
-	void swapLetters(int a, int b);
+	void setMessage(const std::string &);
+	void swapLetters(int, int);
 	// Dictionary
-	void addWordToDict(const std::string &w);
-	bool dictContainsWord(const std::string &w) const;
+	void addWordToDict(const std::string &);
+	bool dictContainsWord(const std::string &) const;
 	// Letter Pool
-	void addLetterToPool(char l);
-	bool isLetterInPool(char l) const;
-	void removeLetterFromPool(char l);
-	void generateLetterPool(const std::string &m);
+	void addLetterToPool(char);
+	bool isLetterInPool(char) const;
+	void removeLetterFromPool(char);
+	void generateLetterPool(const std::string &);
 	// Solutions
 	std::vector<std::string> getSolutions() const;
 	void recursivelySolve();

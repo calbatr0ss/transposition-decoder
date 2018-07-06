@@ -1,6 +1,7 @@
 #include <fstream>
 #include <map>
 #include "decoder.hpp"
+#include "transpoNode.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -49,5 +50,8 @@ int main(int argc, char *argv[])
 	std::cout << decoder->isLetterInPool('b') << std::endl;
 
 	// TODO Start creating a tree to traverse for the solution
+
+	TranspoNode *root = new TranspoNode();
+
 	decoder->recursivelySolve();
 }

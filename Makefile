@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -g -Wall -std=c++11
 
 EXEC = decode
-SRC = main.cpp decoder.cpp
+SRC = main.cpp decoder.cpp transpoTree.cpp transpoNode.cpp
 OBJDIR = build
 $(shell mkdir -p $(OBJDIR) >/dev/null)
 OBJS = $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
