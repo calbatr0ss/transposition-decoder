@@ -87,5 +87,21 @@ std::vector<std::string> Decoder::getSolutions() const
 
 void Decoder::recursivelySolve()
 {
-	// TODO
+	// TODO: Do I need a separate letterPool for each node?
+	// Recursion base case
+	if (letterPool.size() == 0)
+	{
+		// add current node back to pool
+		return;
+	}
+	// check if string is in the dictionary I guess...
+	std::vector<char>::iterator it = letterPool.begin();
+	while (it != letterPool.end())
+	{
+		// create a new node with a char from the pool
+		// remove that from the pool
+		recursivelySolve();
+	}
+	// recursion over and pool exhausted... climbing back up
+	// add letter back to pool
 }
