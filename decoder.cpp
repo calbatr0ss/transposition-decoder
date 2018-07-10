@@ -34,7 +34,7 @@ void Decoder::addWordToDict(const std::string &w)
 
 bool Decoder::dictContainsWord(const std::string &w) const
 {
-	std::unordered_set<std::string>::iterator search = dictionary.find(w);
+	std::unordered_set<std::string>::const_iterator search = dictionary.find(w);
 	return (search != dictionary.end());
 }
 
@@ -90,19 +90,53 @@ void Decoder::recursivelySolve()
 {
 	// TODO: Do I need a separate letterPool for each node?
 	// Recursion base case
-	if (letterPool.size() == 0)
-	{
-		// add current node back to pool
-		return;
-	}
+	// if (usedAllLetters())
+	// {
+	// 	// add current node back to pool
+	// 	return;
+	// }
 	// check if string is in the dictionary I guess...
 	std::vector<char>::iterator it = letterPool.begin();
 	while (it != letterPool.end())
 	{
 		// create a new node with a char from the pool
 		// remove that from the pool
-		recursivelySolve();
+		// recursivelySolve();
 	}
 	// recursion over and pool exhausted... climbing back up
 	// add letter back to pool
 }
+
+bool Decoder::usedAllLetters(const std::vector<TranspoNode *> &children) const
+{
+	std::unordered_set<char> child_map;
+	std::vector<TranspoNode *>::const_iterator childIt = children.begin();
+	while (childIt != children.end())
+	{
+		child_map.insert((*childIt)->getLetter());
+	}
+	std::vector<char>::const_iterator letterIt = letterPool.begin();
+	while (letterIt != letterPool.end())
+	{
+		std::unordered_set<char>::const_iterator search = child_map.find(*letterIt);
+		if (search == child_map.end())
+		{
+			return false;
+		}
+		letterIt++;
+	}
+	return true;
+}
+
+/*
+	if unique pooled letters are all children
+		add current letter
+		return
+	if string is in dict
+		add string to sols
+	for l in pooled letters
+		if l is not already a child
+			remove l from pool
+			recurse
+			add l back to pool
+*/

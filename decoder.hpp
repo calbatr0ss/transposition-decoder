@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include "transpoNode.hpp"
 
 class Decoder
 {
@@ -31,5 +32,6 @@ class Decoder
 	// Solutions
 	std::vector<std::string> getSolutions() const;
 	void recursivelySolve();
+	bool usedAllLetters(const std::vector<TranspoNode *> &) const;
 };
 #endif
