@@ -35,8 +35,9 @@ int main(int argc, char *argv[])
 	std::cout << "Enter a string to decode: ";
 	std::cin >> s;
 	decoder->setMessage(s);
+	decoder->generateLetterPool(s);
 	// temp
-	if (decoder->dictContainsWord(decoder->getMessage()))
+	/* if (decoder->dictContainsWord(decoder->getMessage()))
 	{
 		std::cout << "That word is in the dictionary!" << std::endl;
 	}
@@ -47,11 +48,14 @@ int main(int argc, char *argv[])
 
 	decoder->generateLetterPool(decoder->getMessage());
 	std::cout << decoder->isLetterInPool('a') << std::endl;
-	std::cout << decoder->isLetterInPool('b') << std::endl;
+	std::cout << decoder->isLetterInPool('b') << std::endl; */
 
 	// TODO Start creating a tree to traverse for the solution
 
 	TranspoNode *root = new TranspoNode();
+	root->setChildren(decoder->getLetterPool());
+	root->printChildren();
+	decoder->recursivelySolve(root);
 
-	decoder->recursivelySolve();
+	decoder->printSolutions();
 }
