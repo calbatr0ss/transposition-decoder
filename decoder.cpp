@@ -17,7 +17,7 @@ void Decoder::setMessage(const std::string &m)
 
 void Decoder::swapLetters(int a, int b)
 {
-	if (a > message.length() - 1 || a < 0 || b > message.length() - 1 || b < 0)
+	if (a > int(message.length() - 1) || a < 0 || b > int(message.length() - 1) || b < 0)
 	{
 		std::cout << "Error: Swap index out of range." << std::endl;
 		exit(1);
@@ -103,7 +103,7 @@ void Decoder::removeLetterFromPool(char l)
 
 void Decoder::generateLetterPool(const std::string &m)
 {
-	for (int i = 0; i < m.length(); i++)
+	for (unsigned int i = 0; i < m.length(); i++)
 	{
 		addLetterToPool(m[i]);
 	}
@@ -117,7 +117,7 @@ std::vector<char> Decoder::getLetterPool() const
 void Decoder::printLetterPool() const
 {
 	std::cout << "Letter Pool: [ ";
-	for (int i = 0; i < letterPool.size(); i++)
+	for (unsigned int i = 0; i < letterPool.size(); i++)
 	{
 		std::cout << letterPool[i];
 		if (i != letterPool.size() - 1)
