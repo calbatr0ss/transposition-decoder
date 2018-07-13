@@ -1,9 +1,6 @@
 #include "decoder.hpp"
 
-Decoder::Decoder(void)
-{
-	message = "";
-}
+Decoder::Decoder(void) : message("") {}
 
 std::string Decoder::getMessage(void) const
 {
