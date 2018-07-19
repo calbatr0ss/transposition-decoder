@@ -7,6 +7,12 @@
 #include <vector>
 #include "transpoNode.hpp"
 
+struct Letter
+{
+	char l;
+	bool isDeleted;
+};
+
 class Decoder
 {
   private:

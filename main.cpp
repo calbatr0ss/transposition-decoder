@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 		decoder->addWordToDict(w);
 	}
 	file.close();
+	decoder->printDictionary();
 
 	// Set the message to decode. TEMPORARY!
 	std::string s;
@@ -53,8 +54,8 @@ int main(int argc, char *argv[])
 	// TODO Start creating a tree to traverse for the solution
 
 	TranspoNode *root = new TranspoNode();
-	root->setChildren(decoder->getLetterPool());
-	root->printChildren();
+	// root->setChildren(decoder->getLetterPool());
+	// root->printChildren();
 	decoder->recursivelySolve(root);
 
 	decoder->printSolutions();

@@ -58,13 +58,13 @@ bool Decoder::dictContainsWord(const std::string &w) const
 
 void Decoder::printDictionary() const
 {
-	std::cout << "Dictionary:" << std::endl;
-	std::unordered_set<std::string>::const_iterator it = dictionary.begin();
+	std::cout << "Dictionary: " << dictionary.size() << " words found." << std::endl;
+	/* 	std::unordered_set<std::string>::const_iterator it = dictionary.begin();
 	while (it != dictionary.end())
 	{
 		std::cout << *it << std::endl;
 		it++;
-	}
+	} */
 }
 
 void Decoder::addLetterToPool(char l)
@@ -137,11 +137,13 @@ std::vector<std::string> Decoder::getSolutions() const
 void Decoder::recursivelySolve(TranspoNode *node)
 {
 	printLetterPool();
-	node->setChildren(getLetterPool());
+	// node->setChildren(getLetterPool());
+	node->printChildren();
 	// TODO: Do I need a separate letterPool for each node?
 	// Recursion base case
 	if (usedAllLetters(node->getChildren()))
 	{
+		std::cout << "used all letters true" << std::endl;
 		addLetterToPool(node->getLetter());
 		pop();
 		return;
@@ -157,22 +159,28 @@ void Decoder::recursivelySolve(TranspoNode *node)
 	while (childIt != node->getChildren().end())
 	{
 		child_map.insert((*childIt)->getLetter());
+		childIt++;
 	}
 	std::vector<char>::iterator it = letterPool.begin();
 	while (it != letterPool.end())
 	{
 		std::unordered_set<char>::const_iterator search = child_map.find(*it);
-		if (search == child_map.end()) // did not find
+
+		if (search != child_map.end()) // did not find
 		{
-			std::cout << "should not be here" << std::endl;
+			std::cout << *it << " was found." << std::endl;
 			return;
 		}
-		removeLetterFromPool(*search);
-		append(*search);
-		// TranspoNode *n = new TranspoNode(*search, node);
-		recursivelySolve(node->getChild(*search)); // recurse
+		std::cout << *it << " was NOT found." << std::endl;
+		removeLetterFromPool(*it);
+		append(*it);
+		printCurrentMessage();
+		TranspoNode *n = new TranspoNode(*it, node);
+		// recursivelySolve(node->getChild(*it)); // recurse
+		recursivelySolve(n);
 		// after recurse
-		addLetterToPool(*search);
+		delete n;
+		addLetterToPool(*it); // FIXME: encountered a bug where adding back to the vector invalidates the letter pool... need a separate letter pool for every node! OR mark them as logically deleted :thonk:
 		pop();
 		it++;
 	}
@@ -187,6 +195,7 @@ bool Decoder::usedAllLetters(const std::vector<TranspoNode *> &children) const
 	while (childIt != children.end())
 	{
 		child_map.insert((*childIt)->getLetter());
+		childIt++;
 	}
 	std::vector<char>::const_iterator letterIt = letterPool.begin();
 	while (letterIt != letterPool.end())
